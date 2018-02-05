@@ -30,7 +30,7 @@ public class Post {
             PageTemplates.printHead(out, "BlogRoom");
 
             out.println("<div class=\"navbar fixed-top navbar-light bg-light\">");
-            out.println("  <div class=\"navbar-brand\">Comments</div>");
+            out.println("  <div class=\"navbar-brand\"><a href=\"/\" class=\"btn btn-default\">&#9001;</a> Comments</div>");
             out.println("  <div class=\"navbar-text\" id=\"onlinecnt\"></div>");
             out.println("</div>");
 
