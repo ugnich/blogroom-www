@@ -16,9 +16,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "Main", urlPatterns = {"/"})
 public class Main extends HttpServlet {
-    
+
     Connection sql;
-    
+
     @Override
     public void init() throws ServletException {
         super.init();
@@ -28,7 +28,7 @@ public class Main extends HttpServlet {
         } catch (Exception e) {
         }
     }
-    
+
     @Override
     public void destroy() {
         super.destroy();
@@ -79,6 +79,11 @@ public class Main extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendError(405);
+        String uri = request.getRequestURI();
+        if (uri.equals("/api/newpost")) {
+            API.doPostPost(sql, request, response);
+        } else {
+            response.sendError(404);
+        }
     }
 }

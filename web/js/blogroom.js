@@ -60,3 +60,34 @@ function openPost(e) {
     var post_id=e.getAttribute('data-post-id');
     window.location.href="https://blogroom.live/p/"+post_id;
 }
+
+function newPost(textarea,button) {
+    var txt=textarea.value.trim();
+    if(txt.length==0) {
+        return;
+    }
+        
+    button.setAttribute("disabled","disabled");
+    
+    $.ajax({
+        method: "POST",
+        url: "/api/newpost",
+        data: {
+            "text": txt,
+            "hash": getCookie("hash")
+        },
+        dataType: "json",
+        cache: false,
+        success: function(data) {
+            window.location.href="https://blogroom.live/p/"+data.post.post_id;
+        },
+        error: function() {
+            button.removeAttribute('disabled');
+        }
+    });
+}
+
+window.getCookie = function(name) {
+    match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    if (match) return match[2];
+}

@@ -2,6 +2,7 @@ package live.blogroom.www;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Random;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author ugnich
  */
 public class Utils {
+
+    static final String ABCDEF = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
     public static void setCookie(HttpServletResponse response, String name, String value, int maxage) {
         Cookie c = new Cookie(name, value);
@@ -72,5 +75,14 @@ public class Utils {
         } finally {
             out.close();
         }
+    }
+
+    public static String generateHash(int len) {
+        Random rnd = new Random();
+        StringBuilder sb = new StringBuilder(len);
+        for (int i = 0; i < len; i++) {
+            sb.append(ABCDEF.charAt(rnd.nextInt(ABCDEF.length())));
+        }
+        return sb.toString();
     }
 }

@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 public class Home {
 
     public static void doGet(Connection sql, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int user_id = SQL.getUserIdFromCookies(request, response);
+
         Utils.noCache(response);
         Utils.thisIsHtml(response);
         PrintWriter out = response.getWriter();
@@ -26,6 +28,15 @@ public class Home {
 
             out.println("<div class=\"navbar fixed-top navbar-light bg-light\">");
             out.println("  <div class=\"navbar-brand\">Posts</div>");
+            out.println("</div>");
+
+            out.println("<div id=\"newpost\" class=\"container bg-light pt-3 pb-1 mb-3\">");
+            out.println("  <div class=\"form-group\">");
+            out.println("    <textarea id=\"newposttext\" class=\"form-control\" rows=\"3\" placeholder=\"What's on your mind?\"></textarea>");
+            out.println("  </div>");
+            out.println("  <div class=\"form-group text-right\">");
+            out.println("    <button class=\"btn btn-success\" onclick=\"newPost(document.getElementById('newposttext'),this)\">Post</button>");
+            out.println("  </div>");
             out.println("</div>");
 
             out.println("<div id=\"posts\" class=\"container\">");

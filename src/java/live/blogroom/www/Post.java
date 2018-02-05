@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 public class Post {
 
     public static void doGet(Connection sql, HttpServletRequest request, HttpServletResponse response, int post_id) throws ServletException, IOException {
+        int user_id = SQL.getUserIdFromCookies(request, response);
+
         String post_txt = OneLineSQL.getString(sql, "SELECT txt FROM posts WHERE post_id=?", post_id);
         if (post_txt == null) {
             response.sendError(404);
