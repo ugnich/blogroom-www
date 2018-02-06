@@ -56,7 +56,7 @@ public class Home {
                     if (comments_cnt > 0) {
                         out.println("<div class=\"badge badge-light float-right\">" + comments_cnt + "</div>");
                     }
-                    out.println("<p clas=\"card-text\">" + Utils.encodeHTML(post_txt).replace("\n", "<br/>") + "</p>");
+                    out.println("<p class=\"card-text\">" + Utils.encodeHTML(post_txt).replace("\n", "<br/>") + "</p>");
                     out.println("</div>");
                     out.println("</div>");
                 }
