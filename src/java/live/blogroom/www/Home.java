@@ -43,15 +43,21 @@ public class Home {
             PreparedStatement stmt = null;
             ResultSet rs = null;
             try {
-                stmt = sql.prepareStatement("SELECT post_id,txt FROM posts ORDER BY post_id DESC LIMIT 20");
+                stmt = sql.prepareStatement("SELECT post_id,txt,comments_cnt FROM posts ORDER BY post_id DESC LIMIT 20");
                 rs = stmt.executeQuery();
                 rs.beforeFirst();
                 while (rs.next()) {
                     int post_id = rs.getInt(1);
                     String post_txt = rs.getString(2);
+                    int comments_cnt = rs.getInt(3);
 
                     out.println("<div class=\"card mb-2\" data-post-id=\"" + post_id + "\" onclick=\"openPost(this)\">");
-                    out.println("<div class=\"card-body p-2\">" + Utils.encodeHTML(post_txt).replace("\n", "<br/>") + "</div>");
+                    out.println("<div class=\"card-body p-2\">");
+                    if (comments_cnt > 0) {
+                        out.println("<div class=\"badge badge-light float-right\">" + comments_cnt + "</div>");
+                    }
+                    out.println("<p clas=\"card-text\">" + Utils.encodeHTML(post_txt).replace("\n", "<br/>") + "</p>");
+                    out.println("</div>");
                     out.println("</div>");
                 }
             } catch (SQLException e) {

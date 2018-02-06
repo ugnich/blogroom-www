@@ -30,8 +30,14 @@ public class Post {
             PageTemplates.printHead(out, "BlogRoom");
 
             out.println("<div class=\"navbar fixed-top navbar-light bg-light\">");
-            out.println("  <div class=\"navbar-brand\"><a href=\"/\" class=\"btn btn-default\">&#9001;</a> Comments</div>");
+            out.println("  <div class=\"navbar-brand\"><a href=\"/\" class=\"btn btn-default btn-sm\">&#9001;</a> Comments</div>");
             out.println("  <div class=\"navbar-text\" id=\"onlinecnt\"></div>");
+            out.println("</div>");
+
+            out.println("<div class=\"container mb-3\">");
+            out.println("  <div class=\"card bg-light\">");
+            out.println("    <div class=\"card-body\">" + Utils.encodeHTML(post_txt).replace("\n", "<br/>") + "</div>");
+            out.println("  </div>");
             out.println("</div>");
 
             out.println("<div id=\"comments\" class=\"container\">");
