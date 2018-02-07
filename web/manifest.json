@@ -1,0 +1,6 @@
+{
+    "name": "BlogRoom",
+    "short_name": "BlogRoom",
+    "start_url": "/",
+    "display": "standalone"
+}

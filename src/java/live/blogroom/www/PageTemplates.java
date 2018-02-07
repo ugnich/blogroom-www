@@ -18,6 +18,7 @@ public class PageTemplates {
         out.println("<script src=\"https://code.jquery.com/jquery-3.3.1.min.js\" integrity=\"sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=\" crossorigin=\"anonymous\"></script>");
         out.println("<script type=\"text/javascript\" src=\"/js-3/blogroom.js\"></script>");
         out.println("<title>" + title + "</title>");
+        out.println("<link rel=\"manifest\" href=\"/manifest.json\"/>");
         out.println("</head>");
         out.println("<body style=\"padding-top: 4rem\">");
     }
