@@ -2,7 +2,7 @@ var socket;
 
 function initWS(post_id) {
     if (window.WebSocket) {
-        socket = new WebSocket("wss://blogroom.live/ws/"+post_id);
+        socket = new WebSocket("wss://blogroom.live/ws/"+post_id+"?hash="+getCookie("hash"));
         socket.onmessage = function (event) {
             var msg=JSON.parse(event.data);
             if(msg.hasOwnProperty("status")) {
