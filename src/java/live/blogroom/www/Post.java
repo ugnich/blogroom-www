@@ -4,6 +4,9 @@ import com.ugnich.onelinesql.OneLineSQL;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,6 +44,7 @@ public class Post {
             out.println("</div>");
 
             out.println("<div id=\"comments\" class=\"container\">");
+            printComments(sql, out, post_id);
             out.println("</div>");
 
             out.println("<div class=\"container bg-light p-3\">");
@@ -62,6 +66,30 @@ public class Post {
 
             PageTemplates.printEnd(out);
         } catch (Exception e) {
+        }
+    }
+
+    private static void printComments(Connection sql, PrintWriter out, int post_id) {
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = sql.prepareStatement("SELECT comment_id,txt FROM comments WHERE post_id=? ORDER BY comment_id ASC");
+            stmt.setInt(1, post_id);
+            rs = stmt.executeQuery();
+            if (rs.first()) {
+                String comment_id = rs.getString(1);
+                String text = rs.getString(2);
+
+                out.println("<div class=\"card mb-2\" data-comment-id=\"" + comment_id + "\">");
+                out.println("<div class=\"card-body p-2\">");
+                out.println("<p class=\"card-text\">" + Utils.encodeHTML(text).replace("\n", "<br/>") + "</p>");
+                out.println("</div>");
+                out.println("</div>");
+            }
+        } catch (SQLException e) {
+            System.err.println(e);
+        } finally {
+            OneLineSQL.finishSQL(rs, stmt);
         }
     }
 }
