@@ -8,10 +8,12 @@ function initWS(post_id) {
             if(msg.hasOwnProperty("status")) {
                 document.getElementById("onlinecnt").textContent = "Online: " + msg.status.online;
             } else if(msg.hasOwnProperty("message")) {
-                var comments=document.getElementById("comments");
-                var card=createCard(msg.message.text);
-                comments.appendChild(card);
-                window.scrollTo(0,document.body.scrollHeight);
+                if(document.querySelectorAll("#comments div.card[data-comment-id='"+msg.message.comment_id+"']").length==0) {
+                    var comments=document.getElementById("comments");
+                    var card=createCard(msg.message.comment_id,msg.message.text);
+                    comments.appendChild(card);
+                    window.scrollTo(0,document.body.scrollHeight);
+                }
             }
         };
         socket.onopen = function (event) {
@@ -21,9 +23,10 @@ function initWS(post_id) {
     }
 }
     
-function createCard(text) {
+function createCard(comment_id,text) {
     var card=document.createElement("div");
     card.className="card mb-2";
+    card.setAttribute("data-comment-id",comment_id);
     var cardBody=document.createElement("div");
     cardBody.className="card-body p-2";
     var cardText=document.createElement("p");
