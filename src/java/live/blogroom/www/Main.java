@@ -53,6 +53,8 @@ public class Main extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String uri = request.getRequestURI();
         if (uri.equals("/")) {
+            TeleLanding.doGet(sql, request, response);
+        } else if (uri.equals("/all")) {
             Home.doGet(sql, request, response);
         } else if (uri.startsWith("/p/")) {
             int post_id = 0;
